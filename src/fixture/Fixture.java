@@ -40,4 +40,10 @@ public abstract class Fixture {
 
 	public void init() {
 	}
+	
+//	@Override
+//	public String toString() {
+//		return "Fixture [name=" + name + ", sDescription=" + sDescription + ", lDescription=" + lDescription + "]";
+//	}
+	
 }

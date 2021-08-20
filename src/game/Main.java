@@ -1,5 +1,6 @@
 package game;
 
+import java.util.Arrays;
 import java.util.Scanner;
 import fixture.Room;
 
@@ -18,7 +19,22 @@ public class Main {
 				 
 		while(true) {
 			String[] command = collectInput();
-			close(player);
+			if((command.length == 2)&& (command[1].equals("west"))){
+				interact(player);
+			}
+			else if((command.length == 2)&& (command[1].equals("south"))){
+				interact(player);
+			}
+			else if((command.length == 2)&& (command[1].equals("north"))){
+				interact(player);
+			}
+			else if((command.length == 2)&& (command[1].equals("east"))){
+				interact(player);
+			}
+			else {
+				System.out.println("wrong direction");
+				continue;
+			}
 			parse(command, player);
 			printRoom(player);
 			System.out.println("----------------------------------------------");
@@ -32,38 +48,50 @@ public class Main {
 	}
 		
 	private static String[] collectInput() {
+		Room exit;
 		Scanner scan = new Scanner(System.in);
-			System.out.println("Where would you like to go: \"east/west/south/north\" ");
+			System.out.println("Where would you like to go: ///east/west/south/north///");
 			String[] choice = scan.nextLine().split(" ");
-			return choice;
-				
-	}
+//			for(int i=0; i<choice.length; i++) {
+//				String cha = choice[0];
+//				String cha1 = choice[1];
+//				String con = cha+cha1;	
+//				if(!con.equals("gowest")) {
+//					System.out.println("tryagain");
+//				}
+//			}
+			return choice;				
+		}
 	private static void parse(String[] command, Player player) {
 		Scanner scan = new Scanner(System.in);
-
 		if((command.length == 1) && (command[0].equals("quit"))){
 		 //If the use chooses to quit	
 			System.out.println("Good Bye!!");
 			System.exit(0);
 		}
 		Room nextRoom = player.getCurrentRoom().getExit(command[1]);
-		System.out.println(nextRoom+"nextRoom");
 		
 		if(nextRoom != null) {
-//			System.out.println("............");
 			player.setCurrentRoom(nextRoom);
 //			String currentRoom = "rom" + player.getCurrentRoom().getName();
 		}else {
 			System.out.println("Invalid Entry!! Try Again.");
 		}
 }
-	private static void close(Player player) {
+	private static Player interact(Player player) {
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Please trun off the light before you leave "
-						+ player.getCurrentRoom().getName());
-		String light = scan.next();
-		if(light.equals("off")) {
-			System.out.println("your light has been turned off");
+		while(true) {
+			System.out.println("Please trun off the light before you leave "
+							+ player.getCurrentRoom().getName());
+			String light = scan.next();
+			if(light.equals("off")) {
+				System.out.println("your light has been turned off");
+//				break;
+			}else {
+				System.out.println("Please press the off button.");
+				continue;
+			}
+			return player;
 		}
 	}
 }
